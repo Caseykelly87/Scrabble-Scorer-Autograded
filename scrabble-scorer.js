@@ -126,7 +126,6 @@ const scoringAlgorithms = [
 
 function scorerPrompt() {
    let isValid = false;
-   initialPrompt();
    console.log ("Which Algorithm would you to use when scoring your word?\n\n0 - Simple: One point per character.\n1 - Vowel Bonus: Vowels are worth 3 points.\n2 - Scrabble: Uses scrabble point system.\n");
    
    while (!isValid){
@@ -142,10 +141,9 @@ function scorerPrompt() {
       
    }    
    
-   algoChose = scoringAlgorithms[numChose].Name;
-   algoScore = scoringAlgorithms[numChose].scorerFunction(userWord);
-   
-   return algoChose, algoScore;
+   algoChose = scoringAlgorithms[numChose];
+
+   return algoChose;
 };
 
 
@@ -168,15 +166,20 @@ function transform(object) {
 newPointStructure = transform(oldPointStructure);                    //Moved from underneath function transform to fix Scoping issue for scrabbleScorer//
 
 
+function printResult(){
+   console.log("\n---------------------------------------------------------------------------")
+   console.log (`\n Your word ${userWord} is worth ${algoChose.scorerFunction(userWord)} points using the ${algoChose.Name} algorithm!`)
+   console.log("\n---------------------------------------------------------------------------")
+   
+}
+
+
 function runProgram() {
-   
+   initialPrompt();
    scorerPrompt();
+   printResult();
    
-   console.log("\n---------------------------------------------------------------------------")
-   console.log (`\n Your word ${userWord} is worth ${algoScore} points using the ${algoChose} algorithm!`)
-   console.log("\n---------------------------------------------------------------------------")
-   
-   // console.log(scoringAlgorithms)
+
 };
 
 
